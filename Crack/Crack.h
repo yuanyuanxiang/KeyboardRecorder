@@ -7,15 +7,14 @@
 #include <windows.h>
 #include <stdio.h>
 
-
-__declspec(selectany) HHOOK g_hHook = NULL;
+// 钩子消息回调函数
+typedef int (CALLBACK *Callback)(const char* wnd, const char* key, void* user);
 
 //安装钩子
-extern "C" __declspec(dllexport) BOOL InstallHook();
+extern "C" __declspec(dllexport) BOOL InstallHook(Callback cb, void* user);
 
 //卸载钩子
 extern "C" __declspec(dllexport) BOOL UninstallHook();
 
 //钩子处理函数
 LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam);
-

