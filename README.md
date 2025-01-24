@@ -42,7 +42,8 @@ ShowWindow(hWnd, SW_SHOW);   //显示程序运行窗口
 ```
 
 ## 代码变更历史
-[2025/01/23]
+
+### [2025/01/23]
 
 此项目 **Fork** 自[Summer](https://github.com/zz2summer)。经本人验证，编译通过，运行正常，质量较佳，实乃值得学习和借鉴的一个开源项目。
 
@@ -76,3 +77,24 @@ InstallHook(Fwrite, pFile);
 在`Fwrite`回调函数中，用户能得到窗口名称、键盘值和事先传递给`InstallHook`的指针，以便对消息进行处理。
 
 **注意，回调函数不能阻塞!**
+
+### [2025/01/24]
+
+引入项目[`Keylogger`](https://github.com/GiacomoLaw/Keylogger/tree/master/windows)。
+同理，修改此项目，在创建HOOK时设置回调函数，交由用户处理键盘消息记录。
+以**klog_main.cpp**中EXAMPLE为例，调用`SetHook`启动钩子。
+```c
+SetHook(Fwrite, &output_file)
+```
+随后启动消息循环：
+```c
+MSG msg;
+while (!g_shouldQuit)
+{
+	while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE));
+	std::this_thread::sleep_for(std::chrono::milliseconds(20));
+}
+```
+当有键盘消息时，由用户在回调函数Fwrite处理。
+
+该项目使用低级钩子**WH_KEYBOARD_LL**，程序编译之后即被Windows Defender认为是恶意程序。

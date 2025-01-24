@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Keylogger", "Keylogger\Keylogger.vcxproj", "{68340C1E-E19F-49D5-B5DB-1845E936E1DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -39,6 +41,14 @@ Global
 		{20A81BFD-1CE9-4A9A-81F4-B30CB470E88A}.Release|x64.Build.0 = Release|x64
 		{20A81BFD-1CE9-4A9A-81F4-B30CB470E88A}.Release|x86.ActiveCfg = Release|Win32
 		{20A81BFD-1CE9-4A9A-81F4-B30CB470E88A}.Release|x86.Build.0 = Release|Win32
+		{68340C1E-E19F-49D5-B5DB-1845E936E1DD}.Debug|x64.ActiveCfg = Debug|x64
+		{68340C1E-E19F-49D5-B5DB-1845E936E1DD}.Debug|x64.Build.0 = Debug|x64
+		{68340C1E-E19F-49D5-B5DB-1845E936E1DD}.Debug|x86.ActiveCfg = Debug|Win32
+		{68340C1E-E19F-49D5-B5DB-1845E936E1DD}.Debug|x86.Build.0 = Debug|Win32
+		{68340C1E-E19F-49D5-B5DB-1845E936E1DD}.Release|x64.ActiveCfg = Release|x64
+		{68340C1E-E19F-49D5-B5DB-1845E936E1DD}.Release|x64.Build.0 = Release|x64
+		{68340C1E-E19F-49D5-B5DB-1845E936E1DD}.Release|x86.ActiveCfg = Release|Win32
+		{68340C1E-E19F-49D5-B5DB-1845E936E1DD}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
