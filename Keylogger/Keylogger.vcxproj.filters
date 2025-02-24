@@ -18,5 +18,13 @@
     <ClCompile Include="klog_main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="keylogger.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="keylogger.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
